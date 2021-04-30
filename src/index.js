@@ -31,4 +31,5 @@ ReactDOM.render(
  TODO:
   1. All static messages move to action - done
   2. nav, router, alert separated from app - done
+  3. Homepage- search , list , select - In-progress
 */
