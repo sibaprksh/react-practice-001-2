@@ -13,3 +13,7 @@
   pointer-events: none;
   color: #aaa;
 }
+
+div.selected {
+  border: 2px dotted green;
+}

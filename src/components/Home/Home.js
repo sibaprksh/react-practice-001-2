@@ -22,11 +22,35 @@ export default function Home() {
   ]);
 
   const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState([]);
+
+  const onSelection = data => {
+    //debugger;
+    const index = selected.findIndex(fn(data));
+    if (index === -1) {
+      setSelected(s => [...s, data]);
+    } else {
+      setSelected(s => {
+        s.splice(index, 1);
+        return [...s];
+      });
+    }
+  };
+
+  const fn = data => s => s.name === data.name;
+
+  console.log(selected);
 
   const listItems = list
     .filter(data => data.name.toLowerCase().includes(search.toLowerCase()))
     .map((data, index) => (
-      <div className="text-center" key={index}>
+      <div
+        className={["text-center", selected.some(fn(data)) ? "selected" : ""]
+          .filter(Boolean)
+          .join(" ")}
+        key={index}
+        onClick={() => onSelection(data)}
+      >
         {data.name}
       </div>
     ));
