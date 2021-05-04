@@ -1,3 +1,4 @@
+/* search */
 .has-search .form-control {
   padding-left: 2.375rem;
 }
@@ -14,9 +15,7 @@
   color: #aaa;
 }
 
-div.selected {
-  border: 2px dotted green;
-}
+/* chips */
 
 .chip {
   display: inline-block;
@@ -47,4 +46,13 @@ div.selected {
 
 .closebtn:hover {
   color: #000;
+}
+
+/* box */
+
+div.box {
+}
+
+div.box.selected {
+  border: 2px dotted green;
 }

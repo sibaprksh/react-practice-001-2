@@ -18,7 +18,10 @@ export default function Home() {
     { name: "Angular" },
     { name: "ReactJs" },
     { name: "NodeJs" },
-    { name: ".NET" }
+    { name: ".NET" },
+    { name: ".NET MVC" },
+    { name: "AI" },
+    { name: "Spark" }
   ]);
 
   const [search, setSearch] = useState("");
@@ -41,8 +44,8 @@ export default function Home() {
 
   const fn = data => s => s.name === data.name;
 
-  const selectedItems = selected.map(s => (
-    <div class="chip">
+  const selectedItems = selected.map((s, index) => (
+    <div class="chip" key={index}>
       {/* <img
         src="https://www.w3schools.com/howto/img_avatar.png"
         alt="Person"
@@ -60,7 +63,11 @@ export default function Home() {
     .filter(data => data.name.toLowerCase().includes(search.toLowerCase()))
     .map((data, index) => (
       <div
-        className={["text-center", selected.some(fn(data)) ? "selected" : ""]
+        className={[
+          "text-center",
+          "box",
+          selected.some(fn(data)) ? "selected" : ""
+        ]
           .filter(Boolean)
           .join(" ")}
         key={index}
@@ -72,7 +79,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="pt-5">
+      <div className="pt-5 pb-5">
         <div className="form-group has-search">
           <span className="fa fa-search form-control-feedback" />
           <input
@@ -85,7 +92,8 @@ export default function Home() {
           />
         </div>
         <div>{selectedItems}</div>
-        <div className="grid-container pt-5">{listItems}</div>
+        <div className="grid-container pt-5 pb-5">{listItems}</div>
+        <button>Next</button>
       </div>
     </>
   );
