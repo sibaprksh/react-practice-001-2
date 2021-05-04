@@ -22,10 +22,12 @@ export default function Home() {
   ]);
 
   const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState([
+    { name: "NodeJs" },
+    { name: ".NET" }
+  ]);
 
   const onSelection = data => {
-    //debugger;
     const index = selected.findIndex(fn(data));
     if (index === -1) {
       setSelected(s => [...s, data]);
@@ -39,7 +41,20 @@ export default function Home() {
 
   const fn = data => s => s.name === data.name;
 
-  console.log(selected);
+  const selectedItems = selected.map(s => (
+    <div class="chip">
+      {/* <img
+        src="https://www.w3schools.com/howto/img_avatar.png"
+        alt="Person"
+        width="96"
+        height="96"
+      /> */}
+      {s.name}
+      <span class="closebtn" onClick={() => onSelection(s)}>
+        &times;
+      </span>
+    </div>
+  ));
 
   const listItems = list
     .filter(data => data.name.toLowerCase().includes(search.toLowerCase()))
@@ -69,6 +84,7 @@ export default function Home() {
             onChange={({ target: { value } }) => setSearch(value)}
           />
         </div>
+        <div>{selectedItems}</div>
         <div className="grid-container pt-5">{listItems}</div>
       </div>
     </>
