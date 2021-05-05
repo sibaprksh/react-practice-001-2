@@ -11,9 +11,9 @@ const Navigation = props => {
   console.log({ props });
   return (
     <>
-      {props.current !== 1 ? (
+      {/* {props.current !== 1 ? (
         <button onClick={props.prev}>Previous</button>
-      ) : null}
+      ) : null} */}
 
       {props.current !== props.size ? (
         <button onClick={props.next}>Next</button>
@@ -117,7 +117,7 @@ const TimeStep = props => {
       <input
         type="text"
         name="name"
-        value={props.getState("name", "")}
+        value={props.getState("name", "aa")}
         onChange={props.handleChange}
       />
     </>
@@ -125,27 +125,30 @@ const TimeStep = props => {
 };
 
 const FinalStep = props => {
-  const handleSubmit = () => alert("submit: TODO!");
+  const handleSubmit = () => console.log(props);
   return (
     <div>
       <b>Name:</b> {props.state.name}
+      <button type="button" onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 };
 
 const Before = props => {
   return (
-    <span>
-      This component will be rendered before the Step components in every step
-    </span>
+    <div>
+      {props.current !== 1 ? <button onClick={props.prev}>Back</button> : null}
+    </div>
   );
 };
 
 const After = props => {
   return (
-    <span>
+    <div>
       This component will be rendered after the Step components in every step
-    </span>
+    </div>
   );
 };
 
