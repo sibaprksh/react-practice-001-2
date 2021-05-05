@@ -11,9 +11,13 @@ const Navigation = props => {
   console.log({ props });
   return (
     <>
-      {props.isFirst() ? <button onClick={props.prev}>Previous</button> : null}
+      {props.current !== 1 ? (
+        <button onClick={props.prev}>Previous</button>
+      ) : null}
 
-      <button onClick={props.next}>Next</button>
+      {props.current !== props.size ? (
+        <button onClick={props.next}>Next</button>
+      ) : null}
     </>
   );
 };
