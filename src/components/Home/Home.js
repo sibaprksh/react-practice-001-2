@@ -21,7 +21,7 @@ const Navigation = props => {
   );
 };
 
-const SelectStep = _ => {
+const SelectStep = props => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -109,15 +109,32 @@ const SelectStep = _ => {
   );
 };
 
-const TimeStep = _ => {
-  return (<div>TODO!</div>);
+const TimeStep = props => {
+  return (
+    <>
+      First Name
+      <input
+        type="text"
+        name="name"
+        value={props.getState("name", "")}
+        onChange={props.handleChange}
+      />
+    </>
+  );
+};
+
+const FinalStep = props => {
+  const handleSubmit = () => alert("submit: TODO!");
+  return (
+    <div>
+      <b>Name:</b> {props.state.name}
+    </div>
+  );
 };
 
 export default function Home() {
   //const FINAL_STAGE = 2;
   //const [stage, setStage] = useState(1);
-
-  const handleSubmit = () => alert("submit: TODO!");
 
   const config = {
     navigation: {
@@ -128,30 +145,13 @@ export default function Home() {
 
   return (
     <>
-      https://dev.to/sametweb/how-to-create-multi-step-forms-in-react-3km4
-      {/* <div className="pt-5 pb-5">
-        {stage == 1 ? (
-          <SelectStep />
-        ) : (
-          <>
-            <div>TODO</div>
-          </>
-        )}
-
-        {stage > 1 ? (
-          <button onClick={() => setStage(s => s - 1)}>Prev</button>
-        ) : null}
-        {stage < FINAL_STAGE ? (
-          <button onClick={() => setStage(s => s + 1)}>Next</button>
-        ) : null}
-        {stage == FINAL_STAGE ? (
-          <button onClick={handleSubmit}>Submit</button>
-        ) : null}
-      </div> */}
-      <Steps config={config}>
-        <Step component={SelectStep} />
-        <Step component={TimeStep} />
-      </Steps>
+      <div className="pt-5 pb-5">
+        <Steps config={config}>
+          <Step component={SelectStep} />
+          <Step component={TimeStep} />
+          <Step component={FinalStep} />
+        </Steps>
+      </div>
     </>
   );
 }
