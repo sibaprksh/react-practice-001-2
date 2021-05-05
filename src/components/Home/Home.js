@@ -1,12 +1,27 @@
 import React, { useState } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Steps, Step } from "react-step-builder";
 
 import { authActions } from "../../actions";
 
 import "./Home.css";
 
-export default function Home() {
+const Navigation = props => {
+  console.log({ props });
+  return (
+    <>
+      <button type="button" onClick={props.prev} style={{ marginRight: 10 }}>
+        Previous
+      </button>
+      <button type="button" onClick={props.next}>
+        Next
+      </button>
+    </>
+  );
+};
+
+const SelectStep = _ => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -25,8 +40,6 @@ export default function Home() {
   ]);
 
   const [search, setSearch] = useState("");
-
-  const [stage, setStage] = useState(1);
 
   const [selected, setSelected] = useState([
     { name: "NodeJs" },
@@ -78,32 +91,67 @@ export default function Home() {
   return (
     <>
       <div className="pt-5 pb-5">
+        <div className="form-group has-search">
+          <span className="fa fa-search form-control-feedback" />
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search"
+            name="search"
+            value={search}
+            onChange={({ target: { value } }) => setSearch(value)}
+          />
+        </div>
+        <div>{selectedItems}</div>
+        <div className="grid-container pt-5 pb-5">{listItems}</div>
+      </div>
+    </>
+  );
+};
+
+const TimeStep = _ => {
+  return (<div>TODO!</div>);
+};
+
+export default function Home() {
+  //const FINAL_STAGE = 2;
+  //const [stage, setStage] = useState(1);
+
+  const handleSubmit = () => alert("submit: TODO!");
+
+  const config = {
+    navigation: {
+      component: Navigation,
+      location: "after"
+    }
+  };
+
+  return (
+    <>
+      https://dev.to/sametweb/how-to-create-multi-step-forms-in-react-3km4
+      {/* <div className="pt-5 pb-5">
         {stage == 1 ? (
-          <>
-            <div className="form-group has-search">
-              <span className="fa fa-search form-control-feedback" />
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search"
-                name="search"
-                value={search}
-                onChange={({ target: { value } }) => setSearch(value)}
-              />
-            </div>
-            <div>{selectedItems}</div>
-            <div className="grid-container pt-5 pb-5">{listItems}</div>
-          </>
+          <SelectStep />
         ) : (
           <>
             <div>TODO</div>
           </>
         )}
-        <button onClick={() => setStage(s => s + 1)}>Next</button>
-        {stage !== 1 ? (
+
+        {stage > 1 ? (
           <button onClick={() => setStage(s => s - 1)}>Prev</button>
         ) : null}
-      </div>
+        {stage < FINAL_STAGE ? (
+          <button onClick={() => setStage(s => s + 1)}>Next</button>
+        ) : null}
+        {stage == FINAL_STAGE ? (
+          <button onClick={handleSubmit}>Submit</button>
+        ) : null}
+      </div> */}
+      <Steps config={config}>
+        <Step component={SelectStep} />
+        <Step component={TimeStep} />
+      </Steps>
     </>
   );
 }
