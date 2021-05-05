@@ -25,6 +25,9 @@ export default function Home() {
   ]);
 
   const [search, setSearch] = useState("");
+
+  const [stage, setStage] = useState(1);
+
   const [selected, setSelected] = useState([
     { name: "NodeJs" },
     { name: ".NET" }
@@ -46,12 +49,7 @@ export default function Home() {
 
   const selectedItems = selected.map((s, index) => (
     <div class="chip" key={index}>
-      {/* <img
-        src="https://www.w3schools.com/howto/img_avatar.png"
-        alt="Person"
-        width="96"
-        height="96"
-      /> */}
+      {/* <img src="https://www.w3schools.com/howto/img_avatar.png" /> */}
       {s.name}
       <span class="closebtn" onClick={() => onSelection(s)}>
         &times;
@@ -80,20 +78,31 @@ export default function Home() {
   return (
     <>
       <div className="pt-5 pb-5">
-        <div className="form-group has-search">
-          <span className="fa fa-search form-control-feedback" />
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search"
-            name="search"
-            value={search}
-            onChange={({ target: { value } }) => setSearch(value)}
-          />
-        </div>
-        <div>{selectedItems}</div>
-        <div className="grid-container pt-5 pb-5">{listItems}</div>
-        <button>Next</button>
+        {stage == 1 ? (
+          <>
+            <div className="form-group has-search">
+              <span className="fa fa-search form-control-feedback" />
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search"
+                name="search"
+                value={search}
+                onChange={({ target: { value } }) => setSearch(value)}
+              />
+            </div>
+            <div>{selectedItems}</div>
+            <div className="grid-container pt-5 pb-5">{listItems}</div>
+          </>
+        ) : (
+          <>
+            <div>TODO</div>
+          </>
+        )}
+        <button onClick={() => setStage(s => s + 1)}>Next</button>
+        {stage !== 1 ? (
+          <button onClick={() => setStage(s => s - 1)}>Prev</button>
+        ) : null}
       </div>
     </>
   );
