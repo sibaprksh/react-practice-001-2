@@ -11,12 +11,9 @@ const Navigation = props => {
   console.log({ props });
   return (
     <>
-      <button type="button" onClick={props.prev} style={{ marginRight: 10 }}>
-        Previous
-      </button>
-      <button type="button" onClick={props.next}>
-        Next
-      </button>
+      {props.isFirst() ? <button onClick={props.prev}>Previous</button> : null}
+
+      <button onClick={props.next}>Next</button>
     </>
   );
 };
@@ -132,11 +129,29 @@ const FinalStep = props => {
   );
 };
 
+const Before = props => {
+  return (
+    <span>
+      This component will be rendered before the Step components in every step
+    </span>
+  );
+};
+
+const After = props => {
+  return (
+    <span>
+      This component will be rendered after the Step components in every step
+    </span>
+  );
+};
+
 export default function Home() {
   //const FINAL_STAGE = 2;
   //const [stage, setStage] = useState(1);
 
   const config = {
+    before: Before, // a React component with special props provided automatically
+    after: After, // a React component with special props provided automatically
     navigation: {
       component: Navigation,
       location: "after"
