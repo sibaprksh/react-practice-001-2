@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Steps, Step } from "react-step-builder";
@@ -8,17 +8,25 @@ import { authActions } from "../../actions";
 import "./Home.css";
 
 const Navigation = props => {
+  console.log("Navigation");
   console.log({ props });
-  return (
-    <>
-      {/* {props.current !== 1 ? (
-        <button onClick={props.prev}>Previous</button>
-      ) : null} */}
 
-      {props.current !== props.size ? (
-        <button onClick={props.next}>Next</button>
+  const { state, current, size } = props;
+
+  const isInvalidSelected = !state.selected?.length;
+
+  return (
+    <div>
+      {current !== size ? (
+        <button
+          onClick={props.next}
+          disabled={isInvalidSelected}
+          className="btn btn-primary"
+        >
+          Next
+        </button>
       ) : null}
-    </>
+    </div>
   );
 };
 
@@ -41,11 +49,11 @@ const SelectStep = props => {
   ]);
 
   const [search, setSearch] = useState("");
+  const [selected, setSelected] = useState(props.state?.selected || []);
 
-  const [selected, setSelected] = useState([
-    { name: "NodeJs" },
-    { name: ".NET" }
-  ]);
+  useEffect(() => {
+    props.setState("selected", [...selected]);
+  }, [selected]);
 
   const onSelection = data => {
     const index = selected.findIndex(fn(data));
@@ -62,10 +70,10 @@ const SelectStep = props => {
   const fn = data => s => s.name === data.name;
 
   const selectedItems = selected.map((s, index) => (
-    <div class="chip" key={index}>
+    <div className="chip" key={index}>
       {/* <img src="https://www.w3schools.com/howto/img_avatar.png" /> */}
       {s.name}
-      <span class="closebtn" onClick={() => onSelection(s)}>
+      <span className="closebtn" onClick={() => onSelection(s)}>
         &times;
       </span>
     </div>
@@ -125,10 +133,11 @@ const TimeStep = props => {
 };
 
 const FinalStep = props => {
+  console.log({ props });
   const handleSubmit = () => console.log(props);
   return (
     <div>
-      <b>Name:</b> {props.state.name}
+      <b>Data:</b> {props.state.name}
       <button type="button" onClick={handleSubmit}>
         Submit
       </button>
@@ -145,17 +154,10 @@ const Before = props => {
 };
 
 const After = props => {
-  return (
-    <div>
-      This component will be rendered after the Step components in every step
-    </div>
-  );
+  return <></>;
 };
 
 export default function Home() {
-  //const FINAL_STAGE = 2;
-  //const [stage, setStage] = useState(1);
-
   const config = {
     before: Before, // a React component with special props provided automatically
     after: After, // a React component with special props provided automatically
