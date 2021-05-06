@@ -57,3 +57,9 @@ div.box {
 div.box.selected {
   border: 2px dotted green;
 }
+
+/* Slot */
+.slot-container {
+  display: flex;
+  gap: 20px;
+}

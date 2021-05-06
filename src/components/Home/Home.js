@@ -31,6 +31,8 @@ const Navigation = props => {
 };
 
 const SelectStep = props => {
+  props.jump(2); // jump to step
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -133,21 +135,49 @@ const TimeStep = props => {
       /> */}
       {slots.map((slot, index) => {
         return (
-          <div>
-            Date: <input type="date" name="date" value={slot.date} />
-            Sart Time:{" "}
-            <input type="time" name="start-time" value={slot["start-time"]} />
-            End Time:{" "}
-            <input type="time" name="end-time" value={slot["end-time"]} />
-            <button onClick={() => setSlots(s => {
-              s.splice(index,1);
-              return [...s];
-            })}>Remove</button>
+          <div className="slot-container pb-2 pt-2">
+            <input
+              type="date"
+              placeholder="Date"
+              name="date"
+              value={slot.date}
+              className="form-control"
+            />
+            <input
+              type="time"
+              name="start-time"
+              value={slot["start-time"]}
+              className="form-control"
+            />
+            <input
+              type="time"
+              name="end-time"
+              value={slot["end-time"]}
+              className="form-control"
+            />
+            {slots.length != 1 ? (
+              <button
+                className="btn btn-danger"
+                onClick={() =>
+                  setSlots(s => {
+                    s.splice(index, 1);
+                    return [...s];
+                  })
+                }
+              >
+                Remove
+              </button>
+            ) : null}
           </div>
         );
       })}
 
-      <button onClick={() => setSlots(s => [...s, defaultSlot])}>Add</button>
+      <button
+        className="mb-2 btn btn-primary"
+        onClick={() => setSlots(s => [...s, defaultSlot])}
+      >
+        Add
+      </button>
     </>
   );
 };
