@@ -3,7 +3,7 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Steps, Step } from "react-step-builder";
 
-import { authActions } from "../../actions";
+import { interviewActions } from "../../actions";
 
 import "./Home.css";
 
@@ -231,7 +231,12 @@ const TimeStep = props => {
 };
 
 const FinalStep = props => {
-  const handleSubmit = () => console.log(props.state);
+  const history = useHistory();
+
+  const handleSubmit = () => {
+    console.log(props.state);
+    interviewActions.create(props.state, history);
+  };
 
   return (
     <div>
