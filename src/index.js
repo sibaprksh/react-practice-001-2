@@ -27,6 +27,9 @@ ReactDOM.render(
 
 /*
  Login flow: https://jasonwatmore.com/post/2020/03/02/react-hooks-redux-user-registration-and-login-tutorial-example
+
+ Multiple Steps:
+ https://codesandbox.io/s/react-step-builder-demo-j55cn?from-embed=&file=/src/FinalStep.js
  
  TODO:
   1. All static messages move to action - done

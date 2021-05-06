@@ -99,7 +99,7 @@ const SelectStep = props => {
 
   return (
     <>
-      <div className="pt-5 pb-5">
+      <div className="pt-5">
         <div className="form-group has-search">
           <span className="fa fa-search form-control-feedback" />
           <input
@@ -119,15 +119,35 @@ const SelectStep = props => {
 };
 
 const TimeStep = props => {
+  const defaultSlot = { date: "", "start-time": "", "end-time": "" };
+  const [slots, setSlots] = useState([defaultSlot]);
+
   return (
     <>
-      First Name
+      {/* First Name
       <input
         type="text"
         name="name"
         value={props.getState("name", "aa")}
         onChange={props.handleChange}
-      />
+      /> */}
+      {slots.map((slot, index) => {
+        return (
+          <div>
+            Date: <input type="date" name="date" value={slot.date} />
+            Sart Time:{" "}
+            <input type="time" name="start-time" value={slot["start-time"]} />
+            End Time:{" "}
+            <input type="time" name="end-time" value={slot["end-time"]} />
+            <button onClick={() => setSlots(s => {
+              s.splice(index,1);
+              return [...s];
+            })}>Remove</button>
+          </div>
+        );
+      })}
+
+      <button onClick={() => setSlots(s => [...s, defaultSlot])}>Add</button>
     </>
   );
 };
@@ -159,14 +179,14 @@ const After = props => {
 
 export default function Home() {
   const config = {
-    before: Before, // a React component with special props provided automatically
-    after: After, // a React component with special props provided automatically
+    before: Before,
+    after: After,
     navigation: {
       component: Navigation,
       location: "after"
     }
   };
-  // https://codesandbox.io/s/react-step-builder-demo-j55cn?from-embed=&file=/src/FinalStep.js
+
   return (
     <>
       <div className="pt-5 pb-5">
