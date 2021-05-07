@@ -1,5 +1,5 @@
-import { appConstants, interviewConstants } from "../constants";
-import { alertActions } from "./";
+import { appConstants, interviewConstants } from '../constants';
+import { alertActions } from './';
 
 const { host } = appConstants;
 
@@ -9,15 +9,21 @@ export const interviewActions = {
 };
 
 function get() {
-  return async dispatch => {};
+  return async dispatch => {
+    dispatch(loading(true));
+  };
+
+  function loading() {
+    return { type: appConstants.LOADING };
+  }
 }
 
 function create(data, history) {
   return async dispatch => {
     dispatch(request());
     const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     };
     return fetch(`${host}/interviews`, requestOptions)
