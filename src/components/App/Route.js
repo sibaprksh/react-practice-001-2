@@ -1,13 +1,15 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import { Home, Login, Register } from "../index";
+import { Home, Login, Register, Interviews, CreateInterview } from "../index";
 
 export default function AppRoute() {
   return (
     <div style={{ paddingTop: "56px" }} className="pl-5 pr-5">
       <Switch>
         <PrivateRoute exact path="/" component={Home} />
+        <PrivateRoute path="/create-interview" component={CreateInterview} />
+        <PrivateRoute path="/interviews" component={Interviews} />
         <HomeRout path="/login" component={Login} />
         <HomeRout path="/register" component={Register} />
         <Redirect from="*" to="/" />

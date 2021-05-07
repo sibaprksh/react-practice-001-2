@@ -1,4 +1,7 @@
+import { appConstants, interviewConstants } from "../constants";
 import { alertActions } from "./";
+
+const { host } = appConstants;
 
 export const interviewActions = {
   create
@@ -6,6 +9,7 @@ export const interviewActions = {
 
 function create(data, history) {
   return async dispatch => {
+    dispatch(request());
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -13,11 +17,21 @@ function create(data, history) {
     };
     return fetch(`${host}/interviews`, requestOptions)
       .then(handleResponse)
-      .then(data => {
-        dispatch(alertActions.success("Inerview request created!"));
-        history.push("/login");
+      .then(interview => {
+        dispatch(success(interview));
+        dispatch(alertActions.success(interviewConstants.CREATE_SUCCESS));
+        //history.push("/");
+        history.go(0);
       });
   };
+
+  function request() {
+    return { type: interviewConstants.CREATE_REQUEST };
+  }
+
+  function success(interview) {
+    return { type: interviewConstants.CREATE_SUCCESS, interview };
+  }
 }
 
 function handleResponse(response) {
