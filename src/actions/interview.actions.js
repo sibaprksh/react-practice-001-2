@@ -4,8 +4,13 @@ import { alertActions } from "./";
 const { host } = appConstants;
 
 export const interviewActions = {
-  create
+  create,
+  get
 };
+
+function get() {
+  return async dispatch => {};
+}
 
 function create(data, history) {
   return async dispatch => {
