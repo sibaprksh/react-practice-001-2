@@ -1,20 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Provider } from "react-redux";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
 // setup fake backend
-import { configureFakeBackend } from "./services";
+import { configureFakeBackend } from './services';
 configureFakeBackend();
 
-import { createStore, applyMiddleware } from "redux";
-import thunkMiddleware from "redux-thunk";
-import rootReducer from "./reducers";
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import rootReducer from './reducers';
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-import "./style.css";
+import './style.css';
 
-import { App } from "./components";
+import { App } from './components';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -22,7 +22,7 @@ ReactDOM.render(
       <App />
     </Router>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 /*
@@ -30,6 +30,9 @@ ReactDOM.render(
 
  Multiple Steps:
  https://codesandbox.io/s/react-step-builder-demo-j55cn?from-embed=&file=/src/FinalStep.js
+
+ Nested Route
+ https://stackblitz.com/edit/react-hook-form-crud-example
  
  TODO:
   1. All static messages move to action - done
