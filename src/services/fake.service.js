@@ -1,17 +1,17 @@
 const fakeUser = {
   id: 1,
-  username: "admin@example.com",
-  firstName: "Siba",
-  lastName: "Prakash",
-  password: "admin"
+  username: 'admin@example.com',
+  firstName: 'Siba',
+  lastName: 'Prakash',
+  password: 'admin'
 };
 
 // array in local storage for registered users
-let users = JSON.parse(localStorage.getItem("users")) || [fakeUser];
+let users = JSON.parse(localStorage.getItem('users')) || [fakeUser];
 
 export function configureFakeBackend() {
   let realFetch = window.fetch;
-  window.fetch = function(url, opts) {
+  window.fetch = function(url, opts = {}) {
     const { method, headers } = opts;
     const body = opts.body && JSON.parse(opts.body);
 
@@ -21,13 +21,13 @@ export function configureFakeBackend() {
 
       function handleRoute() {
         switch (true) {
-          case url.endsWith("/login") && method === "POST":
+          case url.endsWith('/login') && method === 'POST':
             return authenticate();
-          case url.endsWith("/register") && method === "POST":
+          case url.endsWith('/register') && method === 'POST':
             return register();
-          case url.endsWith("/users") && method === "GET":
+          case url.endsWith('/users') && method === 'GET':
             return getUsers();
-          case url.match(/\/users\/\d+$/) && method === "DELETE":
+          case url.match(/\/users\/\d+$/) && method === 'DELETE':
             return deleteUser();
           default:
             // pass through any requests not handled above
@@ -44,13 +44,13 @@ export function configureFakeBackend() {
         const user = users.find(
           x => x.username === username && x.password === password
         );
-        if (!user) return error("Username or password is incorrect");
+        if (!user) return error('Username or password is incorrect');
         return ok({
           id: user.id,
           username: user.username,
           firstName: user.firstName,
           lastName: user.lastName,
-          token: "fake-jwt-token"
+          token: 'fake-jwt-token'
         });
       }
 
@@ -64,7 +64,7 @@ export function configureFakeBackend() {
         // assign user id and a few other properties then save
         user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
         users.push(user);
-        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem('users', JSON.stringify(users));
 
         return ok();
       }
@@ -79,7 +79,7 @@ export function configureFakeBackend() {
         if (!isLoggedIn()) return unauthorized();
 
         users = users.filter(x => x.id !== idFromUrl());
-        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem('users', JSON.stringify(users));
         return ok();
       }
 
@@ -96,7 +96,7 @@ export function configureFakeBackend() {
         resolve({
           status: 401,
           text: () =>
-            Promise.resolve(JSON.stringify({ message: "Unauthorized" }))
+            Promise.resolve(JSON.stringify({ message: 'Unauthorized' }))
         });
       }
 
@@ -108,11 +108,11 @@ export function configureFakeBackend() {
       }
 
       function isLoggedIn() {
-        return headers["Authorization"] === "Bearer fake-jwt-token";
+        return headers['Authorization'] === 'Bearer fake-jwt-token';
       }
 
       function idFromUrl() {
-        const urlParts = url.split("/");
+        const urlParts = url.split('/');
         return parseInt(urlParts[urlParts.length - 1]);
       }
     });

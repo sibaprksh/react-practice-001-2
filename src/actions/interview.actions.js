@@ -11,10 +11,17 @@ export const interviewActions = {
 function get() {
   return async dispatch => {
     dispatch(loading(true));
+    const response = await fetch(`${host}/interviews`);
+    const interviews = await response.json();
+    dispatch(loading(false));
+    dispatch(success(interviews));
   };
 
   function loading() {
-    return { type: appConstants.LOADING };
+    return { type: interviewConstants.LOADING };
+  }
+  function success(interviews) {
+    return { type: interviewConstants.FETCH_ALL_SUCCESS, interviews };
   }
 }
 

@@ -1,4 +1,4 @@
-import { interviewConstants } from "../constants";
+import { interviewConstants } from '../constants';
 
 export function interview(state = {}, action) {
   switch (action.type) {
@@ -12,6 +12,10 @@ export function interview(state = {}, action) {
       };
     case interviewConstants.CREATE_FAILURE:
       return {};
+    case interviewConstants.FETCH_ALL_SUCCESS:
+      return {
+        interviews: action.interviews
+      };
     default:
       return state;
   }
