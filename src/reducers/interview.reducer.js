@@ -16,6 +16,10 @@ export function interview(state = {}, action) {
       return {
         interviews: action.interviews
       };
+    case interviewConstants.LOADING:
+      return {
+        isLoading: action.isLoading
+      };
     default:
       return state;
   }

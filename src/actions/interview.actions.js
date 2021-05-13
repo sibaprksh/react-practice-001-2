@@ -17,8 +17,8 @@ function get() {
     dispatch(success(interviews));
   };
 
-  function loading() {
-    return { type: interviewConstants.LOADING };
+  function loading(is) {
+    return { type: interviewConstants.LOADING, isLoading: is };
   }
   function success(interviews) {
     return { type: interviewConstants.FETCH_ALL_SUCCESS, interviews };
